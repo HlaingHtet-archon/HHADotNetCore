@@ -7,7 +7,9 @@ Console.WriteLine("Hello, World!");
 //Console.ReadLine();
 
 AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
-adoDotNetExample.Read();
-adoDotNetExample.Create();
+//adoDotNetExample.Read();
+//adoDotNetExample.Create();
+//adoDotNetExample.Edit();
+adoDotNetExample.Update();
 
 Console.ReadKey();
