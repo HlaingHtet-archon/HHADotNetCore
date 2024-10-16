@@ -28,5 +28,4 @@ EFCoreExample eFCoreExample = new EFCoreExample();
 //eFCoreExample.Update(3, "jaifdj", "oadfhoew", "ahfeo");
 eFCoreExample.Delete(3);
 
-
 Console.ReadKey();
