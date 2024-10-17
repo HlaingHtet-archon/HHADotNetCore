@@ -10,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.Database", "HHADotNetCore.Database\HHADotNetCore.Database.csproj", "{148AD20C-67C0-4CB6-8B28-8ECE23C42D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.Database", "HHADotNetCore.Database\HHADotNetCore.Database.csproj", "{148AD20C-67C0-4CB6-8B28-8ECE23C42D22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.ConsoleApp2", "HHADotNetCore.ConsoleApp2\HHADotNetCore.ConsoleApp2.csproj", "{7069C5C5-145D-449C-A232-AA6256EC21DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.ConsoleApp2", "HHADotNetCore.ConsoleApp2\HHADotNetCore.ConsoleApp2.csproj", "{7069C5C5-145D-449C-A232-AA6256EC21DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.RestApi", "HHADotNetCore.RestApi\HHADotNetCore.RestApi.csproj", "{138D4FBD-F12E-464D-9D3C-260543DB5FD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{7069C5C5-145D-449C-A232-AA6256EC21DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7069C5C5-145D-449C-A232-AA6256EC21DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7069C5C5-145D-449C-A232-AA6256EC21DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138D4FBD-F12E-464D-9D3C-260543DB5FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138D4FBD-F12E-464D-9D3C-260543DB5FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138D4FBD-F12E-464D-9D3C-260543DB5FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138D4FBD-F12E-464D-9D3C-260543DB5FD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
