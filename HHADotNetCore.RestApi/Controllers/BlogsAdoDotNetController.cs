@@ -1,6 +1,7 @@
 ﻿using HHADotNetCore.Database.Models;
 using HHADotNetCore.RestApi.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -62,62 +63,147 @@ namespace HHADotNetCore.RestApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBlog(int id)
         {
-            
+            BlogViewModel lst = null;
+
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"SELECT [BlogId]
+        ,[BlogTitle]
+        ,[BlogAuthor]
+        ,[BlogContent]
+        ,[DeleteFlag]
+    FROM [dbo].[Tbl_Blog]
+    WHERE [BlogId] = @id AND [DeleteFlag] = 0";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                lst = new BlogViewModel
+                {
+                    Id = Convert.ToInt32(reader["BlogId"]),
+                    Title = Convert.ToString(reader["BlogTitle"]),
+                    Author = Convert.ToString(reader["BlogAuthor"]),
+                    Content = Convert.ToString(reader["BlogContent"]),
+                    DeleteFlag = Convert.ToBoolean(reader["DeleteFlag"]),
+                };
+            }
+
+            connection.Close();
+
+            if (lst == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(lst);
         }
 
         [HttpPost]
         public IActionResult CreateBlog(TblBlog blog)
         {
-            
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"INSERT INTO [dbo].[Tbl_Blog] ([BlogTitle], [BlogAuthor], [BlogContent], [DeleteFlag])
+                     VALUES (@BlogTitle, @BlogAuthor, @BLogContent, 0)";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogTitle", blog.BlogTitle);
+            cmd.Parameters.AddWithValue("@BLogAuthor", blog.BlogAuthor);
+            cmd.Parameters.AddWithValue("@BlogContent", blog.BlogContent);
+
+            int result = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            return Ok(result > 0 ? "Creating Successful." : "Creating Failed.");
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBlog(int id, TblBlog blog)
+        public IActionResult UpdateBlog(int id, BlogViewModel blog)
         {
-            
+            string conditions = "";
+            if (!string.IsNullOrEmpty(blog.Title))
+            {
+                conditions += "[BlogTitle] = @BlogTitle, ";
+            }
+            if (!string.IsNullOrEmpty(blog.Author))
+            {
+                conditions += "[BlogAuthor] = @BlogAuthor, ";
+            }
+            if (!string.IsNullOrEmpty(blog.Content))
+            {
+                conditions += "[BlogContent] = @BlogContent, ";
+            }
+
+            if (conditions.Length == 0)
+            {
+                return BadRequest("Invalid Parameter!");
+            }
+
+            conditions = conditions.Substring(0, conditions.Length - 2);
+
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            string query = $@"UPDATE [dbo].[Tbl_Blog] SET {conditions} WHERE BlogId = @BlogId";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            cmd.Parameters.AddWithValue("@BlogTitle", blog.Title);
+            cmd.Parameters.AddWithValue("@BlogAuthor", blog.Author);
+            cmd.Parameters.AddWithValue("@BlogContent", blog.Content);
+
+            int result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            return Ok(result > 0 ? "Updating Successful." : "Updating Failed.");
         }
 
         [HttpPatch("{id}")]
         public IActionResult PatchBlog(int id, BlogViewModel blog)
         {
-            string condition = "";
-            if(string.IsNullOrEmpty( blog.Title))
+            string conditions = "";
+            if(!string.IsNullOrEmpty( blog.Title))
             {
-                condition += "[BlogTitle] = @BlogTitle, ";
+                conditions += " [BlogTitle] = @BlogTitle, ";
             }
-            if (string.IsNullOrEmpty(blog.Author))
+            if (!string.IsNullOrEmpty(blog.Author))
             {
-                condition += "[BlogAuthor] = @BlogAuthor, ";
+                conditions += " [BlogAuthor] = @BlogAuthor, ";
             }
-            if (string.IsNullOrEmpty(blog.Content))
+            if (!string.IsNullOrEmpty(blog.Content))
             {
-                condition += "[BlogContent] = @BlogContent, ";
+                conditions += " [BlogContent] = @BlogContent, ";
             }
 
-            if(condition.Length == 0)
+            if(conditions.Length == 0)
             {
                 return BadRequest("Invalid Parameter!");
             }
 
-            condition = condition.Substring(0, condition.Length - 2);
+            conditions = conditions.Substring(0, conditions.Length - 2);
 
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
 
-            string query = $@"UPDATE [dbo].[Tbl_Blog] SET {condition} WHERE BlogId = @BlogId";
-
+            string query = $@"UPDATE [dbo].[Tbl_Blog] SET {conditions} WHERE BlogId = @BlogId";
 
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@BlogId", id);
-            if (string.IsNullOrEmpty(blog.Title))
+            if (!string.IsNullOrEmpty(blog.Title))
             {
                 cmd.Parameters.AddWithValue("@BlogTitle", blog.Title);
             }
-            if (string.IsNullOrEmpty(blog.Author))
+            if (!string.IsNullOrEmpty(blog.Author))
             {
                 cmd.Parameters.AddWithValue("@BlogAuthor", blog.Author);
             }
-            if (string.IsNullOrEmpty(blog.Content))
+            if (!string.IsNullOrEmpty(blog.Content))
             {
                 cmd.Parameters.AddWithValue("@BlogContent", blog.Content);
             }
@@ -132,7 +218,18 @@ namespace HHADotNetCore.RestApi.Controllers
         [HttpDelete("{int}")]
         public IActionResult DeleteBlog(int id)
         {
-            
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            string query = $@"UPDATE [dbo].[Tbl_Blog] SET DeleteFlag = 1 WHERE BlogId = @BlogId";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+
+            int result = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            return Ok(result == 1 ? "Deleting Successful." : "Deleting Failed.");
         }
     }
 }
