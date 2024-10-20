@@ -125,31 +125,14 @@ namespace HHADotNetCore.RestApi.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateBlog(int id, BlogViewModel blog)
         {
-            string conditions = "";
-            if (!string.IsNullOrEmpty(blog.Title))
-            {
-                conditions += "[BlogTitle] = @BlogTitle, ";
-            }
-            if (!string.IsNullOrEmpty(blog.Author))
-            {
-                conditions += "[BlogAuthor] = @BlogAuthor, ";
-            }
-            if (!string.IsNullOrEmpty(blog.Content))
-            {
-                conditions += "[BlogContent] = @BlogContent, ";
-            }
-
-            if (conditions.Length == 0)
-            {
-                return BadRequest("Invalid Parameter!");
-            }
-
-            conditions = conditions.Substring(0, conditions.Length - 2);
-
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
 
-            string query = $@"UPDATE [dbo].[Tbl_Blog] SET {conditions} WHERE BlogId = @BlogId";
+            string query = @"UPDATE [dbo].[Tbl_Blog] 
+                SET [BlogTitle] = @BlogTitle, 
+                [BlogAuthor] = @BlogAuthor, 
+                [BlogContent] = @BlogContent 
+                WHERE BlogId = @BlogId";
 
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@BlogId", id);
@@ -158,9 +141,6 @@ namespace HHADotNetCore.RestApi.Controllers
             cmd.Parameters.AddWithValue("@BlogContent", blog.Content);
 
             int result = cmd.ExecuteNonQuery();
-
-            connection.Close();
-
             return Ok(result > 0 ? "Updating Successful." : "Updating Failed.");
         }
 

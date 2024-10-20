@@ -83,7 +83,13 @@ namespace HHADotNetCore.RestApi.Controllers
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                int result = db.Execute(query, new { blog.Title, blog.Author, blog.Content, BlogId = id });
+                int result = db.Execute(query, new
+                {
+                    BlogTitle = blog.Title,
+                    BlogAuthor = blog.Author,
+                    BlogContent = blog.Content,
+                    BlogId = id
+                });
 
                 return Ok(result > 0 ? "Updating Successful." : "Updating Failed.");
             }
@@ -93,22 +99,18 @@ namespace HHADotNetCore.RestApi.Controllers
         public IActionResult PatchBlog(int id, BlogViewModel blog)
         {
             string conditions = "";
-            var parameters = new DynamicParameters();  // To store only necessary parameters
 
             if (!string.IsNullOrEmpty(blog.Title))
             {
                 conditions += "BlogTitle = @BlogTitle, ";
-                parameters.Add("@BlogTitle", blog.Title);  // Add only if Title is not empty
             }
             if (!string.IsNullOrEmpty(blog.Author))
             {
                 conditions += "BlogAuthor = @BlogAuthor, ";
-                parameters.Add("@BlogAuthor", blog.Author);  // Add only if Author is not empty
             }
             if (!string.IsNullOrEmpty(blog.Content))
             {
                 conditions += "BlogContent = @BlogContent, ";
-                parameters.Add("@BlogContent", blog.Content);  // Add only if Content is not empty
             }
 
             if (string.IsNullOrEmpty(conditions))
@@ -116,17 +118,19 @@ namespace HHADotNetCore.RestApi.Controllers
                 return BadRequest("Invalid Parameter!");
             }
 
-            conditions = conditions.Substring(0, conditions.Length - 2);  // Remove the trailing comma
+            conditions = conditions.Substring(0, conditions.Length - 2);
 
             string query = $@"UPDATE [dbo].[Tbl_Blog] 
-                      SET {conditions} 
-                      WHERE BlogId = @BlogId AND DeleteFlag = 0;";
-
-            parameters.Add("@BlogId", id);  // Always add BlogId
+                           SET {conditions} 
+                         WHERE BlogId = @BlogId AND DeleteFlag = 0;";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                int result = db.Execute(query, parameters);
+                int result = db.Execute(query, new { 
+                    BlogTitle = blog.Title, 
+                    BlogAuthor = blog.Author, 
+                    BlogContent = blog.Content, 
+                    BlogId = id });
 
                 return Ok(result > 0 ? "Updating Successful." : "Updating Failed.");
             }
