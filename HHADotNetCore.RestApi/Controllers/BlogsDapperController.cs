@@ -79,7 +79,7 @@ namespace HHADotNetCore.RestApi.Controllers
                                    SET BlogTitle = @BlogTitle,
                                        BlogAuthor = @BlogAuthor,
                                        BlogContent = @BlogContent
-                                 WHERE BlogId = @BlogId AND DeleteFlag = 0;";
+                                 WHERE BlogId = @BlogId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -122,7 +122,7 @@ namespace HHADotNetCore.RestApi.Controllers
 
             string query = $@"UPDATE [dbo].[Tbl_Blog] 
                            SET {conditions} 
-                         WHERE BlogId = @BlogId AND DeleteFlag = 0;";
+                         WHERE BlogId = @BlogId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
