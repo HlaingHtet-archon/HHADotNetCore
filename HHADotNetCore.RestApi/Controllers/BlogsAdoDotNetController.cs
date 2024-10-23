@@ -135,12 +135,15 @@ namespace HHADotNetCore.RestApi.Controllers
                 WHERE BlogId = @BlogId";
 
             SqlCommand cmd = new SqlCommand(query, connection);
+
             cmd.Parameters.AddWithValue("@BlogId", id);
             cmd.Parameters.AddWithValue("@BlogTitle", blog.Title);
             cmd.Parameters.AddWithValue("@BlogAuthor", blog.Author);
             cmd.Parameters.AddWithValue("@BlogContent", blog.Content);
 
             int result = cmd.ExecuteNonQuery();
+            connection.Close();
+
             return Ok(result > 0 ? "Updating Successful." : "Updating Failed.");
         }
 
