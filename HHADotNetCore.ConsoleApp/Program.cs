@@ -21,11 +21,14 @@ Console.WriteLine("Hello, World!");
 //dapperExample.Update(1,"aaa", "bbb", "ccc");
 //dapperExample.Delete(6);
 
-EFCoreExample eFCoreExample = new EFCoreExample();
+//EFCoreExample eFCoreExample = new EFCoreExample();
 //eFCoreExample.Read();
 //eFCoreExample.Create("i334", "235lw", "2oejow");
 //eFCoreExample.Edit(1);
 //eFCoreExample.Update(3, "jaifdj", "oadfhoew", "ahfeo");
-eFCoreExample.Delete(3);
+//eFCoreExample.Delete(3);
+
+DapperExample2 dapperExample2 = new DapperExample2();
+dapperExample2.Read();
 
 Console.ReadKey();
