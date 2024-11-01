@@ -92,7 +92,6 @@ namespace HHADotNetCore.ConsoleApp
                 Console.WriteLine(item.BlogTitle);
                 Console.WriteLine(item.BlogAuthor);
                 Console.WriteLine(item.BlogContent);
-                   
             }
         }
 
@@ -120,8 +119,9 @@ namespace HHADotNetCore.ConsoleApp
 
         public void Delete(int id)
         {
-            string query = $@"DELETE FROM [dbo].[Tbl_Blog]
-      WHERE BlogId = @BlogId";
+            string query = $@"UPDATE [dbo].[Tbl_Blog]
+               SET [DeleteFlag] = 1
+             WHERE BlogId = @BlogId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
