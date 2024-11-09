@@ -68,7 +68,7 @@ app.MapPost("/zodiac", (ZodiacDetail zodiac) =>
     var jsonStr = File.ReadAllText(folderPath);
     var result = JsonConvert.DeserializeObject<ZodiacResponseModel>(jsonStr)!;
 
-    var zodiacList = result.ZodiacSignsDetail?.ToList() ?? new List<ZodiacDetail>();
+    var zodiacList = result.ZodiacSignsDetail.ToList();
     zodiacList.Add(zodiac);
 
     result.ZodiacSignsDetail = zodiacList.ToArray();
