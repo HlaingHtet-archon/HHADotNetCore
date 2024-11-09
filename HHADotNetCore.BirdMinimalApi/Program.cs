@@ -68,7 +68,7 @@ app.MapPost("/birds", (BirdModel bird) =>
     var jsonStr = File.ReadAllText(folderPath);
     var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
 
-    var birdList = result.Tbl_Bird?.ToList() ?? new List<BirdModel>();
+    var birdList = result.Tbl_Bird.ToList();
     birdList.Add(bird);
 
     result.Tbl_Bird = birdList.ToArray();
