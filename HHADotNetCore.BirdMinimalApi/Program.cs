@@ -69,6 +69,7 @@ app.MapPost("/birds", (BirdModel bird) =>
     var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
 
     var birdList = result.Tbl_Bird.ToList();
+    bird.Id = birdList.Count == 0 ? 1 : birdList.Max(x => x.Id) + 1 ;
     birdList.Add(bird);
 
     result.Tbl_Bird = birdList.ToArray();
