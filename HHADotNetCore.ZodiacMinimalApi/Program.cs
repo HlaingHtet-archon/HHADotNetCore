@@ -69,6 +69,7 @@ app.MapPost("/zodiac", (ZodiacDetail zodiac) =>
     var result = JsonConvert.DeserializeObject<ZodiacResponseModel>(jsonStr)!;
 
     var zodiacList = result.ZodiacSignsDetail.ToList();
+    zodiac.Id = zodiacList.Count == 0 ? 1 : zodiacList.Max(x => x.Id) + 1;
     zodiacList.Add(zodiac);
 
     result.ZodiacSignsDetail = zodiacList.ToArray();
