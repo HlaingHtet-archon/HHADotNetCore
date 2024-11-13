@@ -1,30 +1,30 @@
-﻿namespace HHADotNetCore.MinimalApi.Endpoint.Blog;
+﻿using HHADotNetCore.Domain.Features.Blog;
 
-public static class BlogEndpoint
+namespace HHADotNetCore.MinimalApi.Endpoint.Blog;
+
+public static class BlogServiceEndpoint
 {
-    public static void UseBlogEndpoint(this IEndpointRouteBuilder app)
+    public static void UseBlogServiceEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapGet("/blogs", () =>
         {
-            AppDbContext db = new AppDbContext();
-            var model = db.TblBlogs.AsNoTracking().ToList();
-            return Results.Ok(model);
+            BlogService service = new BlogService();
+            var lst = service.GetBlogs();
+            return Results.Ok(lst);
         })
 .WithName("GetBlogs")
 .WithOpenApi();
 
         app.MapGet("/blogs/{id}", (int id) =>
         {
-            AppDbContext db = new AppDbContext();
-            var item = db.TblBlogs
-                .AsNoTracking()
-                .FirstOrDefault(x => x.BlogId == id);
-            if (item == null)
+            BlogService service = new BlogService();
+            var lst = service.GetBlog();
+            if (lst == null)
             {
                 return Results.BadRequest("No data found.");
             }
 
-            return Results.Ok(item);
+            return Results.Ok(lst);
         })
         .WithName("GetBlog")
         .WithOpenApi();
