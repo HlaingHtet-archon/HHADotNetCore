@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HHADotNetCore.Database\HHADotNetCore.Database.csproj" />
     <ProjectReference Include="..\HHADotNetCore.Domain\HHADotNetCore.Domain.csproj" />
+    <ProjectReference Include="..\HHADotNetCore.Shared\HHADotNetCore.Shared.csproj" />
     <ProjectReference Include="..\ToDoList.Database\ToDoList.Database.csproj" />
   </ItemGroup>
 
