@@ -28,7 +28,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.BirdMinimalAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.ZodiacMinimalApi", "HHADotNetCore.ZodiacMinimalApi\HHADotNetCore.ZodiacMinimalApi.csproj", "{F794023E-28EC-4327-B1B8-41D1F8B12A6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.Domain", "HHADotNetCore.Domain\HHADotNetCore.Domain.csproj", "{1B632DD9-0D99-4B6B-9BA4-2BE4BDAA3CE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.Domain", "HHADotNetCore.Domain\HHADotNetCore.Domain.csproj", "{1B632DD9-0D99-4B6B-9BA4-2BE4BDAA3CE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPay.Database", "BankPay.Database\BankPay.Database.csproj", "{76973CA3-7796-4A4D-8142-0D3F29ABED3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPay.RestApi", "BankPay.RestApi\BankPay.RestApi.csproj", "{519890BD-8321-42D8-B018-6FAB2175047D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPay.Domain", "BankPay.Domain\BankPay.Domain.csproj", "{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +82,18 @@ Global
 		{1B632DD9-0D99-4B6B-9BA4-2BE4BDAA3CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B632DD9-0D99-4B6B-9BA4-2BE4BDAA3CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B632DD9-0D99-4B6B-9BA4-2BE4BDAA3CE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76973CA3-7796-4A4D-8142-0D3F29ABED3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76973CA3-7796-4A4D-8142-0D3F29ABED3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76973CA3-7796-4A4D-8142-0D3F29ABED3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76973CA3-7796-4A4D-8142-0D3F29ABED3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{519890BD-8321-42D8-B018-6FAB2175047D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519890BD-8321-42D8-B018-6FAB2175047D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519890BD-8321-42D8-B018-6FAB2175047D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519890BD-8321-42D8-B018-6FAB2175047D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
