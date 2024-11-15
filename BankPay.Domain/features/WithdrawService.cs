@@ -3,40 +3,40 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BankPay.Domain.features
 {
-    public class DepositService
+    public class WithdrawService
     {
         private readonly AppDbContext _db = new AppDbContext();
 
-        public object CreateDeposit(string mobileNumber, decimal Balance)
+        public object CreateWithdraw(string mobileNumber, decimal Balance)
         {
             var user = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == mobileNumber && x.DeleteFlag == false);
 
             if (user != null)
             {
-                if (Balance > 0)
+                if (Balance > 0 && user.Balance >= Balance)
                 {
-                    var deposit = new TblDeposit
+                    user.Balance -= Balance;
+
+                    var withdraw = new TblWithdraw
                     {
                         MobileNumber = mobileNumber,
                         Balance = Balance
                     };
 
-                    _db.TblDeposits.Add(deposit);
+                    _db.TblWithdraws.Add(withdraw);
+                    _db.TblUsers.Update(user); 
                     _db.SaveChanges();
-
-                    return deposit;
                 }
                 else
                 {
                     var error = new ErrorResponse
                     {
-                        errorMessage = "Invalid Balance."
+                        errorMessage = "Insufficient balance or invalid amount."
                     };
                     return error;
                 }
@@ -45,10 +45,13 @@ namespace BankPay.Domain.features
             {
                 var error = new ErrorResponse
                 {
-                    errorMessage = "Wrong Phone Number."
+                    errorMessage = "Invalid phone number."
                 };
                 return error;
             }
+
+            return new { message = "Withdrawal successful", balance = user.Balance };
         }
+
     }
 }
