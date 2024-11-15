@@ -55,6 +55,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.TransactionNumber).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.DeleteFlag).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Pin)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .IsFixedLength();
             entity.Property(e => e.ReceiverMobileNumber).HasMaxLength(15);
             entity.Property(e => e.SenderMobileNumber).HasMaxLength(15);
             entity.Property(e => e.Status)

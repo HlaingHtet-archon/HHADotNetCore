@@ -16,6 +16,8 @@ public partial class TblTransaction
 
     public decimal Amount { get; set; }
 
+    public string Pin { get; set; } = null!;
+
     public DateTime TransactionDate { get; set; }
 
     public string? Status { get; set; }
