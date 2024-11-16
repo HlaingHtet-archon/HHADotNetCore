@@ -17,16 +17,16 @@ namespace BankPay.Domain.features
             var Sender = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == senderMobileNumber && x.DeleteFlag == false);
             var Receiver = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == receiverMobileNumber && x.DeleteFlag == false);
 
-                if (Sender == null || Receiver == null)
-                    return new ErrorResponse { errorMessage = "Mobile phone number doesn't exist." };
+            if (Sender == null || Receiver == null)
+                return new ErrorResponse { errorMessage = "Mobile phone number doesn't exist." };
 
-                if (Sender.MobileNumber == Receiver.MobileNumber)
-                    return new ErrorResponse { errorMessage = "Mobile phone numbers cannot be the same!" };
+            if (Sender.MobileNumber == Receiver.MobileNumber)
+                return new ErrorResponse { errorMessage = "Mobile phone numbers cannot be the same!" };
 
-                if (Sender.Pin != pin)
-                    return new ErrorResponse { errorMessage = "Incorrect PIN!" };
+            if (Sender.Pin != pin)
+                return new ErrorResponse { errorMessage = "Incorrect PIN!" };
 
-                if (amount > Sender.Balance)
+            if (amount > Sender.Balance || amount < 100)
                     return new ErrorResponse { errorMessage = "Invalid amount!" };
 
                 Sender.Balance -= amount;
