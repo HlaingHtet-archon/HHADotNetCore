@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,46 +13,45 @@ namespace BankPay.Domain.features
     {
         private readonly AppDbContext _db = new AppDbContext();
 
-        public object CreateWithdraw(string mobileNumber, decimal Balance)
+        public object CreateWithdraw(string mobileNumber, decimal amount, string pin)
         {
-            var user = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == mobileNumber && x.DeleteFlag == false);
+            var user = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == mobileNumber);
+            if (user == null)
+                return new ErrorResponse { errorMessage = "User's mobile number not found." };
 
-            if (user != null)
+            if (user.Pin != pin)
+                return new ErrorResponse { errorMessage = "Invalid PIN." };
+
+            var depositAccount = _db.TblDeposits.FirstOrDefault(x => x.MobileNumber == mobileNumber && x.DeleteFlag == false);
+            if (depositAccount == null)
+                return new ErrorResponse { errorMessage = "Deposit account not found." };
+
+            if (depositAccount.Balance < amount)
+                return new ErrorResponse { errorMessage = "Insufficient balance." };
+
+            depositAccount.Balance -= amount;
+            _db.TblDeposits.Update(depositAccount);
+
+            var transaction = new TblTransaction
             {
-                if (Balance > 0 && user.Balance >= Balance)
-                {
-                    user.Balance -= Balance;
+                TransactionNumber = Guid.NewGuid(),
+                TransactionType = "Withdraw",
+                SenderMobileNumber = mobileNumber,
+                Amount = amount,
+                Pin = pin,
+                TransactionDate = DateTime.Now,
+                Status = "Completed",
+                DeleteFlag = false
+            };
 
-                    var withdraw = new TblWithdraw
-                    {
-                        MobileNumber = mobileNumber,
-                        Balance = Balance
-                    };
+            _db.TblTransactions.Add(transaction);
+            _db.SaveChanges();
 
-                    _db.TblWithdraws.Add(withdraw);
-                    _db.TblUsers.Update(user); 
-                    _db.SaveChanges();
-                }
-                else
-                {
-                    var error = new ErrorResponse
-                    {
-                        errorMessage = "Insufficient balance or invalid amount."
-                    };
-                    return error;
-                }
-            }
-            else
+            return new
             {
-                var error = new ErrorResponse
-                {
-                    errorMessage = "Invalid phone number."
-                };
-                return error;
-            }
-
-            return new { message = "Withdrawal successful", balance = user.Balance };
+                Message = "Withdrawal successful",
+                Transaction = transaction
+            };
         }
-
     }
 }

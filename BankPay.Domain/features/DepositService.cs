@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,42 +14,48 @@ namespace BankPay.Domain.features
     {
         private readonly AppDbContext _db = new AppDbContext();
 
-        public object CreateDeposit(string mobileNumber, decimal Balance)
+        public object CreateDeposit(string mobileNumber, decimal amount)
         {
-            var user = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == mobileNumber && x.DeleteFlag == false);
+            var userAccount = _db.TblDeposits.FirstOrDefault(x => x.MobileNumber == mobileNumber && x.DeleteFlag == false);
 
-            if (user != null)
+            if (userAccount == null)
             {
-                if (Balance > 0)
-                {
-                    var deposit = new TblDeposit
-                    {
-                        MobileNumber = mobileNumber,
-                        Balance = Balance
-                    };
-
-                    _db.TblDeposits.Add(deposit);
-                    _db.SaveChanges();
-
-                    return deposit;
-                }
-                else
-                {
-                    var error = new ErrorResponse
-                    {
-                        errorMessage = "Invalid Balance."
-                    };
-                    return error;
-                }
+                return new ErrorResponse { errorMessage = "User's account not found." };
             }
-            else
+
+            if (amount <= 0)
             {
-                var error = new ErrorResponse
-                {
-                    errorMessage = "Wrong Phone Number."
-                };
-                return error;
+                return new ErrorResponse { errorMessage = "Invalid deposit amount." };
             }
+
+            userAccount.Balance += amount;
+
+            _db.TblDeposits.Update(userAccount);
+            _db.SaveChanges();
+
+            var transaction = new TblTransaction
+            {
+                TransactionNumber = Guid.NewGuid(),
+                TransactionType = "Deposit",
+                SenderMobileNumber = mobileNumber, 
+                Amount = amount,
+                TransactionDate = DateTime.Now,
+                Status = "Completed",
+                DeleteFlag = false
+            };
+
+            _db.TblTransactions.Add(transaction);
+            _db.SaveChanges();
+
+            return new
+            {
+                Message = "Deposit successful",
+                AccountBalance = userAccount.Balance,
+                Transaction = transaction
+            };
         }
     }
 }
+
+
+
