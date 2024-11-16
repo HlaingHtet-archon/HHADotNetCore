@@ -26,7 +26,7 @@ namespace BankPay.Domain.features
                 if (Sender.Pin != pin)
                     return new ErrorResponse { errorMessage = "Incorrect PIN!" };
 
-                if (amount > Sender.Balance || amount < 10000)
+                if (amount > Sender.Balance)
                     return new ErrorResponse { errorMessage = "Invalid amount!" };
 
                 Sender.Balance -= amount;
