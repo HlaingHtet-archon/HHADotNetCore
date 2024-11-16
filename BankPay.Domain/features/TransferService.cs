@@ -14,70 +14,45 @@ namespace BankPay.Domain.features
 
         public object CreateTransfer(string senderMobileNumber, string receiverMobileNumber, decimal amount, string pin)
         {
-            var sender = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == senderMobileNumber);
-            if (sender == null)
-            {
-                return new ErrorResponse { errorMessage = "Sender's mobile number not found." };
-            }
+            var Sender = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == senderMobileNumber && x.DeleteFlag == false);
+            var Receiver = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == receiverMobileNumber && x.DeleteFlag == false);
 
-            if (sender.Pin != pin)
-            {
-                return new ErrorResponse { errorMessage = "Invalid PIN." };
-            }
+                if (Sender == null || Receiver == null)
+                    return new ErrorResponse { errorMessage = "Mobile phone number doesn't exist." };
 
-            var senderAccount = _db.TblDeposits.FirstOrDefault(x => x.MobileNumber == senderMobileNumber && x.DeleteFlag == false);
-            if (senderAccount == null || senderAccount.Balance < amount)
-            {
-                return new ErrorResponse { errorMessage = "Insufficient balance." };
-            }
+                if (Sender.MobileNumber == Receiver.MobileNumber)
+                    return new ErrorResponse { errorMessage = "Mobile phone numbers cannot be the same!" };
 
-            var receiver = _db.TblUsers.AsNoTracking().FirstOrDefault(x => x.MobileNumber == receiverMobileNumber);
-            if (receiver == null)
-            {
-                return new ErrorResponse { errorMessage = "Receiver's mobile number not found." };
-            }
+                if (Sender.Pin != pin)
+                    return new ErrorResponse { errorMessage = "Incorrect PIN!" };
 
-            senderAccount.Balance -= amount;
-            _db.TblDeposits.Update(senderAccount);
+                if (amount > Sender.Balance || amount < 10000)
+                    return new ErrorResponse { errorMessage = "Invalid amount!" };
 
-            var receiverAccount = _db.TblDeposits.FirstOrDefault(x => x.MobileNumber == receiverMobileNumber && x.DeleteFlag == false);
-            if (receiverAccount == null)
-            {
-                receiverAccount = new TblDeposit
+                Sender.Balance -= amount;
+                Receiver.Balance += amount;
+
+                _db.TblUsers.Update(Sender);
+                _db.TblUsers.Update(Receiver);
+                _db.SaveChanges();
+
+                var transaction = new TblTransaction
                 {
-                    MobileNumber = receiverMobileNumber,
-                    Balance = amount,
+                    TransactionNumber = Guid.NewGuid(),
+                    TransactionType = "Transfer",
+                    SenderMobileNumber = senderMobileNumber,
+                    ReceiverMobileNumber = receiverMobileNumber,
+                    Amount = amount,
+                    Pin = pin,
+                    TransactionDate = DateTime.Now,
+                    Status = "Completed",
                     DeleteFlag = false
                 };
-                _db.TblDeposits.Add(receiverAccount);
-            }
-            else
-            {
-                receiverAccount.Balance += amount;
-                _db.TblDeposits.Update(receiverAccount);
-            }
-
-            var transaction = new TblTransaction
-            {
-                TransactionNumber = Guid.NewGuid(),
-                TransactionType = "Transfer",
-                SenderMobileNumber = senderMobileNumber,
-                ReceiverMobileNumber = receiverMobileNumber,
-                Amount = amount,
-                Pin = pin,
-                TransactionDate = DateTime.Now,
-                Status = "Completed",
-                DeleteFlag = false
-            };
 
             _db.TblTransactions.Add(transaction);
             _db.SaveChanges();
 
-            return new
-            {
-                Message = "Transfer successful",
-                Transaction = transaction
-            };
+            return "Transaction successfully completed";
         }
     }
 }
