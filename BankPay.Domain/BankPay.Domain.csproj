@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BankPay.Database\BankPay.Database.csproj" />
-  </ItemGroup>
-
 </Project>

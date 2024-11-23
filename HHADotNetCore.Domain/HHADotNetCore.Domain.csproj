@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankPay.Database\BankPay.Database.csproj" />
     <ProjectReference Include="..\HHADotNetCore.Database\HHADotNetCore.Database.csproj" />
     <ProjectReference Include="..\HHADotNetCore.Shared\HHADotNetCore.Shared.csproj" />
   </ItemGroup>
