@@ -38,7 +38,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPay.Domain", "BankPay.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.MiniKpayDatabase", "HHADotNetCore.MiniKpayDatabase\HHADotNetCore.MiniKpayDatabase.csproj", "{AF6B34F7-6E7F-4EDA-8681-B2C3D7A9C1BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.MiniKpayDomain", "HHADotNetCore.MiniKpayDomain\HHADotNetCore.MiniKpayDomain.csproj", "{168AC4EB-D394-452C-BB60-1B284D50538A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.MiniKpayDomain", "HHADotNetCore.MiniKpayDomain\HHADotNetCore.MiniKpayDomain.csproj", "{168AC4EB-D394-452C-BB60-1B284D50538A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.MiniKpayRestApi", "HHADotNetCore.MiniKpayRestApi\HHADotNetCore.MiniKpayRestApi.csproj", "{536A93D0-4998-4BFB-9495-646F91A938E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +108,10 @@ Global
 		{168AC4EB-D394-452C-BB60-1B284D50538A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{168AC4EB-D394-452C-BB60-1B284D50538A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{168AC4EB-D394-452C-BB60-1B284D50538A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536A93D0-4998-4BFB-9495-646F91A938E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536A93D0-4998-4BFB-9495-646F91A938E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536A93D0-4998-4BFB-9495-646F91A938E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536A93D0-4998-4BFB-9495-646F91A938E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
