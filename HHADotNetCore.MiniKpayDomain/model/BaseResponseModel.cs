@@ -36,17 +36,6 @@ namespace HHADotNetCore.MiniKpayDomain.model
             };
         }
 
-        public static BaseResponseModel Pending(string respCode, string respDesp)
-        {
-            return new BaseResponseModel()
-            {
-                IsSuccess = true,
-                RespCode = respCode,
-                RespDesp = respDesp,
-                RespType = EnumRespType.pending,
-            };
-        }
-
         public static BaseResponseModel SystemError(string respCode, string respDesp)
         {
             return new BaseResponseModel()
@@ -58,14 +47,5 @@ namespace HHADotNetCore.MiniKpayDomain.model
             };
         }
 
-    }
-
-    public enum EnumRespType
-    {
-        None,
-        Success,
-        pending,
-        ValidationError,
-        SystemError
     }
 }

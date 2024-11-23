@@ -50,4 +50,12 @@ namespace HHADotNetCore.MiniKpayDomain.model
         }
     }
 
+    public enum EnumRespType
+    {
+        None,
+        Success,
+        pending,
+        ValidationError,
+        SystemError
+    }
 }
