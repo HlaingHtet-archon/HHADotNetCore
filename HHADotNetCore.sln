@@ -30,11 +30,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.ZodiacMinimal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.Domain", "HHADotNetCore.Domain\HHADotNetCore.Domain.csproj", "{1B632DD9-0D99-4B6B-9BA4-2BE4BDAA3CE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPay.Database", "BankPay.Database\BankPay.Database.csproj", "{76973CA3-7796-4A4D-8142-0D3F29ABED3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPay.Database", "BankPay.Database\BankPay.Database.csproj", "{76973CA3-7796-4A4D-8142-0D3F29ABED3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPay.RestApi", "BankPay.RestApi\BankPay.RestApi.csproj", "{519890BD-8321-42D8-B018-6FAB2175047D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPay.RestApi", "BankPay.RestApi\BankPay.RestApi.csproj", "{519890BD-8321-42D8-B018-6FAB2175047D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankPay.Domain", "BankPay.Domain\BankPay.Domain.csproj", "{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankPay.Domain", "BankPay.Domain\BankPay.Domain.csproj", "{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.MiniKpayDatabase", "HHADotNetCore.MiniKpayDatabase\HHADotNetCore.MiniKpayDatabase.csproj", "{AF6B34F7-6E7F-4EDA-8681-B2C3D7A9C1BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.MiniKpayDomain", "HHADotNetCore.MiniKpayDomain\HHADotNetCore.MiniKpayDomain.csproj", "{168AC4EB-D394-452C-BB60-1B284D50538A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +98,14 @@ Global
 		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0CEA251-0CCB-449D-9950-9D7195DA4FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF6B34F7-6E7F-4EDA-8681-B2C3D7A9C1BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF6B34F7-6E7F-4EDA-8681-B2C3D7A9C1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF6B34F7-6E7F-4EDA-8681-B2C3D7A9C1BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF6B34F7-6E7F-4EDA-8681-B2C3D7A9C1BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{168AC4EB-D394-452C-BB60-1B284D50538A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{168AC4EB-D394-452C-BB60-1B284D50538A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{168AC4EB-D394-452C-BB60-1B284D50538A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{168AC4EB-D394-452C-BB60-1B284D50538A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

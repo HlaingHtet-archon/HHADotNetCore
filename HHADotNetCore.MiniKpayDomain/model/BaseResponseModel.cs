@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HHADotNetCore.MiniKpayDomain.model
+{
+    public class BaseResponseModel
+    {
+        public string RespCode { get; set; }
+        public string RespDesp { get; set; }
+        public EnumRespType RespType { get; set; }
+        public bool IsSuccess { get; set; }
+        public bool IsError { get { return !IsSuccess; } }
+
+        public static BaseResponseModel Success(string respCode, string respDesp)
+        {
+            return new BaseResponseModel()
+            {
+                IsSuccess = true,
+                RespCode = respCode,
+                RespDesp = respDesp,
+                RespType = EnumRespType.Success,
+            };
+        }
+
+        public static BaseResponseModel ValidationError(string respCode, string respDesp)
+        {
+            return new BaseResponseModel()
+            {
+                IsSuccess = true,
+                RespCode = respCode,
+                RespDesp = respDesp,
+                RespType = EnumRespType.ValidationError,
+            };
+        }
+
+        public static BaseResponseModel Pending(string respCode, string respDesp)
+        {
+            return new BaseResponseModel()
+            {
+                IsSuccess = true,
+                RespCode = respCode,
+                RespDesp = respDesp,
+                RespType = EnumRespType.pending,
+            };
+        }
+
+        public static BaseResponseModel SystemError(string respCode, string respDesp)
+        {
+            return new BaseResponseModel()
+            {
+                IsSuccess = true,
+                RespCode = respCode,
+                RespDesp = respDesp,
+                RespType = EnumRespType.SystemError,
+            };
+        }
+
+    }
+
+    public enum EnumRespType
+    {
+        None,
+        Success,
+        pending,
+        ValidationError,
+        SystemError
+    }
+}
