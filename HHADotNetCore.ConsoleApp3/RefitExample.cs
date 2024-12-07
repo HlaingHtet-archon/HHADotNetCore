@@ -52,7 +52,7 @@ namespace HHADotNetCore.ConsoleApp3
                 BlogContent = "Task",
             });
 
-            var item7 = await blogApi.DeleteBlog(15);
+            var item7 = await blogApi.DeleteBlog(13);
         }
     }
 }
