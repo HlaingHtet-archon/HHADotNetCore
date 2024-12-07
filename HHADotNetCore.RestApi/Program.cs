@@ -1,6 +1,17 @@
+using HHADotNetCore.Database.Models;
+using HHADotNetCore.Domain.Features.Blog;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
+});
+//builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IBlogService, BlogV2Service>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

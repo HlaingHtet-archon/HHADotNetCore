@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.MiniKpayDomai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.MiniKpayRestApi", "HHADotNetCore.MiniKpayRestApi\HHADotNetCore.MiniKpayRestApi.csproj", "{536A93D0-4998-4BFB-9495-646F91A938E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.ConsoleApp3", "HHADotNetCore.ConsoleApp3\HHADotNetCore.ConsoleApp3.csproj", "{55E26051-4C8C-475F-983F-3B6C6CB935E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.ConsoleApp3", "HHADotNetCore.ConsoleApp3\HHADotNetCore.ConsoleApp3.csproj", "{55E26051-4C8C-475F-983F-3B6C6CB935E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

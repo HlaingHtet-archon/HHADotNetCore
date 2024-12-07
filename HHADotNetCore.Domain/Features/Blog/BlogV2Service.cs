@@ -1,18 +1,13 @@
 ﻿using HHADotNetCore.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HHADotNetCore.Domain.Features.Blog;
 
-public class BlogService : IBlogService
+public class BlogV2Service : IBlogService
 {
     private readonly AppDbContext _db;
 
-    public BlogService(AppDbContext db)
+    public BlogV2Service(AppDbContext db)
     {
         _db = db;
     }
