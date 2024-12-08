@@ -1,9 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using HHADotNetCore.ConsoleApp;
+using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 using System.Data.SqlClient;
 
-Console.WriteLine("Hello, World!");
+//Console.WriteLine("Hello, World!");
 //Console.ReadLine();
 
 //AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
@@ -28,7 +29,12 @@ Console.WriteLine("Hello, World!");
 //eFCoreExample.Update(3, "jaifdj", "oadfhoew", "ahfeo");
 //eFCoreExample.Delete(3);
 
-DapperExample2 dapperExample2 = new DapperExample2();
-dapperExample2.Read();
+//DapperExample2 dapperExample2 = new DapperExample2();
+//dapperExample2.Read();
+
+var services = new ServiceCollection().AddSingleton<AdoDotNetExample>().BuildServiceProvider();
+
+var adoDotNetExample = services.GetRequiredService<AdoDotNetExample>();
+adoDotNetExample.Read();
 
 Console.ReadKey();

@@ -12,7 +12,12 @@ namespace HHADotNetCore.RestApi.Controllers
     [ApiController]
     public class BlogsAdoDotNetController : ControllerBase
     {
-        private readonly string _connectionString = "Data Source=.;Initial Catalog=HHADotNetCore;User ID=sa;Password=sasa@123;TrustServerCertificate=True;";
+        private readonly string _connectionString;
+
+        public BlogsAdoDotNetController(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("DbConnection")!;
+        }
 
         [HttpGet]
         public IActionResult GetBlogs()
