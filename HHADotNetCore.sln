@@ -44,7 +44,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.RestApi2", "H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.ConsoleApp4", "HHADotNetCore.ConsoleApp4\HHADotNetCore.ConsoleApp4.csproj", "{94D5E164-10B5-45B2-85AA-182ED5CFCF22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.MvcApp", "HHADotNetCore.MvcApp\HHADotNetCore.MvcApp.csproj", "{63A3FFF1-B9AD-48F3-B6C9-71518F1C2258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HHADotNetCore.MvcApp", "HHADotNetCore.MvcApp\HHADotNetCore.MvcApp.csproj", "{63A3FFF1-B9AD-48F3-B6C9-71518F1C2258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHADotNetCore.ChartWebApp", "HHADotNetCore.ChartWebApp\HHADotNetCore.ChartWebApp.csproj", "{CA67ED6E-1BD2-4477-B452-29E9E8762625}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -124,6 +126,10 @@ Global
 		{63A3FFF1-B9AD-48F3-B6C9-71518F1C2258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63A3FFF1-B9AD-48F3-B6C9-71518F1C2258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63A3FFF1-B9AD-48F3-B6C9-71518F1C2258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA67ED6E-1BD2-4477-B452-29E9E8762625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA67ED6E-1BD2-4477-B452-29E9E8762625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA67ED6E-1BD2-4477-B452-29E9E8762625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA67ED6E-1BD2-4477-B452-29E9E8762625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

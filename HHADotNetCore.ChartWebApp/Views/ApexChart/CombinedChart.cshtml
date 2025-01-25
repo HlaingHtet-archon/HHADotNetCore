@@ -1,0 +1,62 @@
+﻿@model ApexChartCombinedChartModel
+@{
+    var lineSeries = Model.LineSeries.Select(p => new { x = p.X, y = p.Y }).ToList();
+    var candleSeries = Model.CandleSeries.Select(p => new { x = p.X, y = p.Y }).ToList();
+}
+
+<div id="chart"></div>
+
+@section scripts {
+    <script>
+        const lineSeries = @Html.Raw(JsonConvert.SerializeObject(lineSeries));
+        const candleSeries = @Html.Raw(JsonConvert.SerializeObject(candleSeries));
+
+        var options = {
+            series: [{
+                name: 'line',
+                type: 'line',
+                data: lineSeries
+            }, {
+                name: 'candle',
+                type: 'candlestick',
+                data: candleSeries
+            }],
+            chart: {
+                height: 350,
+                type: 'line',
+            },
+            title: {
+                text: 'Combined Line and Candlestick Chart',
+                align: 'left'
+            },
+            stroke: {
+                width: [3, 1]
+            },
+            tooltip: {
+                shared: true,
+                custom: [function({seriesIndex, dataPointIndex, w}) {
+                    return w.globals.series[seriesIndex][dataPointIndex]
+                }, function({ seriesIndex, dataPointIndex, w }) {
+                    var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                    var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+                    var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+                    var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                    return (
+                        '<div class="apexcharts-tooltip-candlestick">' +
+                        '<div>Open: <span class="value">' + o + '</span></div>' +
+                        '<div>High: <span class="value">' + h + '</span></div>' +
+                        '<div>Low: <span class="value">' + l + '</span></div>' +
+                        '<div>Close: <span class="value">' + c + '</span></div>' +
+                        '</div>'
+                    )
+                }]
+            },
+            xaxis: {
+                type: 'datetime'
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+}

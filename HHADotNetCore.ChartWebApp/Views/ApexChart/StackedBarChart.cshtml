@@ -1,0 +1,57 @@
+﻿@model ApexChartStackedBarModel
+@{
+    var series = Model.Series.Select(s => new { name = s.Name, data = s.Data }).ToList();
+    var categories = Model.Categories;
+}
+
+<div id="chart"></div>
+
+@section scripts {
+    <script>
+        const series = @Html.Raw(JsonConvert.SerializeObject(series));
+        const categories = @Html.Raw(JsonConvert.SerializeObject(categories));
+
+        var options = {
+            series: series,
+            chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+                stackType: '100%'
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                },
+            },
+            stroke: {
+                width: 1,
+                colors: ['#fff']
+            },
+            title: {
+                text: '100% Stacked Bar'
+            },
+            xaxis: {
+                categories: categories,
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + "K";
+                    }
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                offsetX: 40
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+}
